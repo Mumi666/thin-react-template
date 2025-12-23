@@ -1,10 +1,11 @@
-import {Button} from "@/components/ui/button.tsx";
+import {ModeToggle} from "@/components/mode-toggle.jsx";
 
 
 export function About() {
-
-
     return (
-        <Button>按钮</Button>
+        <>
+            <ModeToggle />
+        </>
+
     )
 }
