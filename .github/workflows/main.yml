@@ -42,3 +42,10 @@ jobs:
           push: false
           tags: myapp:test
           outputs: type=docker,dest=/tmp/image.tar
+# 👉 上传为 workflow artifact
+      - name: Upload image as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp/image.tar
+          retention-days: 1  # 测试用，可缩短保留时间
