@@ -1,0 +1,44 @@
+name: Build Docker Image Only
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 👉 设置 Buildx（启用 BuildKit，支持缓存和多平台）
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 👉 构建镜像（不推送！）
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          # 关键：不推送
+          push: false
+          # 可选：打上本地标签（仅用于后续步骤识别，不会上传）
+          tags: myapp:latest
+          # 启用缓存加速重复构建（使用 GitHub Actions Cache）
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          # 可选：导出镜像为 tar 文件（见下方扩展）
+          # outputs: type=docker,dest=/tmp/image.tar
+       # 👉 构建并导出为 tar 文件
+      - name: Build and export image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: myapp:test
+          outputs: type=docker,dest=/tmp/image.tar
