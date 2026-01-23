@@ -1,11 +1,8 @@
 import {Route, Routes} from "react-router-dom";
 import {About} from "./view/about/About.jsx";
+import {Home} from "./view/home/Home.jsx";
 import {ThemeProvider} from "@/components/theme-provider.tsx";
 import {JotaiProvider} from "@/components/jotai-provider.tsx";
-
-function Home() {
-    return <div className="p-4 bg-red-500 text-white">Home</div>
-}
 
 
 export default function App() {

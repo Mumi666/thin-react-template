@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  photo-portfolio:
+    build: .
+    image: photo-portfolio
+    container_name: photo-portfolio
+    ports:
+      - "8123:80"
+    volumes:
+      - /Users/shihongjin/photo:/usr/share/nginx/html/photos:ro
+    restart: unless-stopped
